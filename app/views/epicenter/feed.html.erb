@@ -1,0 +1,17 @@
+<h1>@<%= current_user.username %>'s Twitter Feed</h1>
+<p>Here is what your "friends" are saying:</p>
+
+<div>
+    <% @following_tweets.each do |tweet| %>
+    <div class="well">
+    	<%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user_id) %>
+	    <p>@<%= tweet.user.username %></p>
+	    • <% if tweet.created_at > 1.day.ago %>
+	    	<%= time_ago_in_words(tweet.created_at) %>
+	    <% else %> 
+			<%= tweet.created_at.strftime('%b %e') %>
+		<% end %>
+	    <p><%= tweet.message.html_safe %></p>
+	</div>
+    <% end %>
+</div>
